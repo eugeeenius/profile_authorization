@@ -5,11 +5,18 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
+    darkMode: true,
   },
+
   mutations: {
+    SET_THEME(state) {
+      state.darkMode = !state.darkMode;
+    },
   },
+
   actions: {
-  },
-  modules: {
+    toggleTheme({commit}) {
+      commit('SET_THEME');
+    },
   },
 });

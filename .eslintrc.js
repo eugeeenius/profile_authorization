@@ -13,10 +13,13 @@ module.exports = {
   rules: {
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
-    'semi': [2, 'always',],
-    'comma-dangle': [2, {
-      'arrays': 'always',
-      'objects': 'always',
-    },],
+    'indent': ['warn', 2],
+    'semi': [2, 'always'],
+    'comma-dangle': [
+      2,
+      {
+        'objects': 'always-multiline',
+      },
+    ],
   },
 };

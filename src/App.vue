@@ -1,30 +1,43 @@
 <template>
-  <div id="app">
-    <div id="nav">
+  <div id="app"
+       class="w-full h-screen"
+       :class="{'dark': darkMode}">
+    <div class="wrap w-full h-full text-gray-900 dark:text-gray-100">
+      <VSwitch
+        :value="darkMode"
+        @input="onToggle"
+      />
+      <router-view/>
     </div>
-    <router-view/>
   </div>
 </template>
 
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<script>
+import {mapState, mapActions} from 'vuex';
+import VSwitch from "./components/VSwitch";
 
-#nav {
-  padding: 30px;
+export default {
+  components: {VSwitch},
 
-  a {
-    font-weight: bold;
-    color: #2c3e50;
+  computed: {
+    ...mapState({
+      darkMode: state => state.darkMode,
+    }),
+  },
 
-    &.router-link-exact-active {
-      color: #42b983;
-    }
+  methods: {
+    ...mapActions(['toggleTheme']),
+
+    onToggle() {
+      this.toggleTheme();
+      document.body.classList[this.darkMode ? 'add' : 'remove']('bg-gray-900');
+    },
+  },
+};
+</script>
+
+<style lang="scss" scoped>
+  .wrap {
+    transition: color .2s ease;
   }
-}
 </style>
