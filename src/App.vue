@@ -2,7 +2,7 @@
   <div id="app"
        class="w-full h-screen"
        :class="{'dark': darkMode}">
-    <div class="wrap w-full h-full text-gray-900 dark:text-gray-100">
+    <div class="wrap w-full h-full text-gray-800 dark:text-gray-100">
       <VSwitch
         :value="darkMode"
         @input="onToggle"
@@ -14,7 +14,7 @@
 
 <script>
 import {mapState, mapActions} from 'vuex';
-import VSwitch from "./components/VSwitch";
+import VSwitch from "./components/ui/VSwitch";
 
 export default {
   components: {VSwitch},
@@ -25,12 +25,21 @@ export default {
     }),
   },
 
+  created() {
+    this.loadThemeState();
+    this.toggleBodyClass();
+  },
+
   methods: {
-    ...mapActions(['toggleTheme']),
+    ...mapActions(['loadThemeState', 'setTheme']),
 
     onToggle() {
-      this.toggleTheme();
-      document.body.classList[this.darkMode ? 'add' : 'remove']('bg-gray-900');
+      this.setTheme(!this.darkMode);
+      this.toggleBodyClass();
+    },
+
+    toggleBodyClass() {
+      document.body.classList[this.darkMode ? 'add' : 'remove']('bg-gray-800');
     },
   },
 };

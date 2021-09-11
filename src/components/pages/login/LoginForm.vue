@@ -1,11 +1,15 @@
 <template>
-  <div class="text-lg">
-    Login Page
+  <div>
+
   </div>
 </template>
 
 <script>
 export default {
-  name: 'Login',
+
 };
 </script>
+
+<style scoped>
+
+</style>

@@ -9,14 +9,25 @@ export default new Vuex.Store({
   },
 
   mutations: {
-    SET_THEME(state) {
-      state.darkMode = !state.darkMode;
+    SET_THEME(state, payload) {
+      state.darkMode = payload;
     },
   },
 
   actions: {
-    toggleTheme({commit}) {
-      commit('SET_THEME');
+    setTheme({commit}, payload) {
+      const strValue = JSON.stringify(payload);
+      localStorage.setItem('darkMode', strValue);
+
+      commit('SET_THEME', payload);
+    },
+
+    loadThemeState({commit}) {
+      const theme = localStorage.getItem('darkMode');
+      console.log(theme);
+      const parsed = JSON.parse(theme);
+
+      commit('SET_THEME', parsed ?? false);
     },
   },
 });
