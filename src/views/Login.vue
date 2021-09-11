@@ -1,5 +1,5 @@
 <template>
-  <div class="login">
+  <div class="text-lg">
     Login Page
   </div>
 </template>
