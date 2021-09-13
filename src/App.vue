@@ -2,10 +2,11 @@
   <div id="app"
        class="w-full h-screen"
        :class="{'dark': darkMode}">
-    <div class="wrap w-full h-full text-gray-800 dark:text-gray-100">
+    <div class="wrap w-full h-full bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-50 overflow-hidden"
+         :class="{'theme-transition': isThemeChanging}">
       <VSwitch
         :value="darkMode"
-        @input="onToggle"
+        @input="onChangeTheme"
       />
       <router-view/>
     </div>
@@ -19,6 +20,12 @@ import VSwitch from "./components/ui/VSwitch";
 export default {
   components: {VSwitch},
 
+  data() {
+    return {
+      isThemeChanging: false,
+    };
+  },
+
   computed: {
     ...mapState({
       darkMode: state => state.darkMode,
@@ -26,20 +33,23 @@ export default {
   },
 
   created() {
-    this.loadThemeState();
-    this.toggleBodyClass();
+    this.loadAppState();
   },
 
   methods: {
-    ...mapActions(['loadThemeState', 'setTheme']),
+    ...mapActions({
+      loadAppState: 'loadAppState',
+      setTheme: 'setTheme',
+    }),
 
-    onToggle() {
+    onChangeTheme() {
+      this.isThemeChanging = true;
+
       this.setTheme(!this.darkMode);
-      this.toggleBodyClass();
-    },
 
-    toggleBodyClass() {
-      document.body.classList[this.darkMode ? 'add' : 'remove']('bg-gray-800');
+      setTimeout(() => {
+        this.isThemeChanging = false;
+      }, 500);
     },
   },
 };
@@ -47,6 +57,7 @@ export default {
 
 <style lang="scss" scoped>
   .wrap {
+    position: relative;
     transition: color .2s ease;
   }
 </style>

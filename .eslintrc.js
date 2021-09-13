@@ -19,7 +19,9 @@ module.exports = {
       2,
       {
         'objects': 'always-multiline',
+        'arrays': 'always-multiline',
       },
     ],
+    'no-unused-vars': "off",
   },
 };

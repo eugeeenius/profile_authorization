@@ -12,6 +12,9 @@ export default new Vuex.Store({
     SET_THEME(state, payload) {
       state.darkMode = payload;
     },
+    SET_LOGIN_DATA(state, payload) {
+      state.loginData = payload;
+    },
   },
 
   actions: {
@@ -22,12 +25,15 @@ export default new Vuex.Store({
       commit('SET_THEME', payload);
     },
 
-    loadThemeState({commit}) {
-      const theme = localStorage.getItem('darkMode');
-      console.log(theme);
-      const parsed = JSON.parse(theme);
+    setIsLogged() {
+      localStorage.setItem('isLogged', true);
+    },
 
-      commit('SET_THEME', parsed ?? false);
+    loadAppState({commit}) {
+      const theme = localStorage.getItem('darkMode');
+      const themeState = JSON.parse(theme);
+
+      commit('SET_THEME', themeState ?? false);
     },
   },
 });

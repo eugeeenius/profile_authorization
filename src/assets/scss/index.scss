@@ -1,6 +1,10 @@
 @import "src/assets/tailwind";
 
-body {
-  background-color: #f1f5f9;
-  transition: background-color $theme-transition;
+input {
+  background-color: transparent;
+  outline: none;
+}
+
+.theme-transition > * {
+  transition: color, background-color $theme-transition;
 }
