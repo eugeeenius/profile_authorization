@@ -1,18 +1,30 @@
 <template>
   <div class="w-full h-full relative">
     <div class="form">
-      <LoginForm/>
+      <LoginForm @on-loading="isLoading = $event"/>
+
+      <div v-if="isLoading"
+           class="loader">
+        <Loader/>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 import LoginForm from "../components/pages/login/LoginForm";
+import Loader from "../components/Loader";
 
 export default {
   name: 'Login',
 
-  components: {LoginForm},
+  components: {Loader, LoginForm},
+
+  data() {
+    return {
+      isLoading: false,
+    };
+  },
 
   beforeRouteEnter(to, from, next) {
     const isLogged = JSON.parse(localStorage.getItem('isLogged'));
@@ -31,5 +43,12 @@ export default {
     top: 18%;
     left: 50%;
     transform: translate3d(-50%, 0, 0);
+  }
+
+  .loader {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate3d(-50%, -50%, 0);
   }
 </style>

@@ -8,7 +8,10 @@
         :value="darkMode"
         @input="onChangeTheme"
       />
-      <router-view/>
+      <transition name="page"
+                  mode="out-in">
+        <router-view/>
+      </transition>
     </div>
   </div>
 </template>
@@ -59,5 +62,14 @@ export default {
   .wrap {
     position: relative;
     transition: color .2s ease;
+  }
+
+  .page-enter-active,
+  .page-leave-active {
+    transition: opacity .4s;
+  }
+  .page-enter,
+  .page-leave-to {
+    opacity: 0;
   }
 </style>

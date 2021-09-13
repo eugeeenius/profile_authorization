@@ -1,5 +1,6 @@
 <template>
-  <form class="flex flex-col items-center text-center px-12 py-8 rounded-md bg-white dark:bg-gray-700 shadow-lf theme-transition">
+  <form class="flex flex-col items-center text-center px-12 py-8 rounded-md bg-white dark:bg-gray-700 shadow-xl"
+        :class="{'filter blur': isLoading}">
     <div class="flex flex-col items-center">
       <AccountCircle :size="100"/>
 
@@ -62,6 +63,7 @@ export default {
       email: '',
       password: '',
       remember: false,
+      isLoading: false,
       isEmptyFields: false,
     };
   },
@@ -92,6 +94,11 @@ export default {
     },
   },
 
+  watch: {
+    isLoading(val) {
+      this.$emit('on-loading', val);
+    },
+  },
 
   methods: {
     ...mapActions(['setIsLogged']),
@@ -101,7 +108,7 @@ export default {
       this.$v[inputType].$touch();
     },
 
-    onButtonClick() {
+    async onButtonClick() {
       if (!this.email.length || !this.password.length) {
         this.isEmptyFields = true;
         return;
@@ -113,14 +120,20 @@ export default {
         this.setIsLogged();
       }
 
-      this.$router.push('#');
+      this.isLoading = true;
+      await new Promise(res => {
+        setTimeout(res, 4000);
+      });
+      this.isLoading = true;
+
+      this.$router.push({name: 'Profile'});
     },
   },
 };
 </script>
 
 <style lang="scss" scoped>
-  form {
-    width: 520px;
-  }
+form {
+  width: 520px;
+}
 </style>
