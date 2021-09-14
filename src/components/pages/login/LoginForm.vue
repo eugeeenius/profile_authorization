@@ -1,6 +1,6 @@
 <template>
   <form class="flex flex-col items-center text-center px-12 py-8 rounded-md bg-white dark:bg-gray-700 shadow-xl"
-        :class="{'filter blur': isLoading}">
+        :class="{'filter blur pointer-events-none': isLoading}">
     <div class="flex flex-col items-center">
       <AccountCircle :size="100"/>
 
@@ -90,7 +90,7 @@ export default {
       if (this.isEmptyFields) {
         return 'Please, fill in all the fields above';
       }
-      return 'Incorrect password';
+      return 'Password should be at least 8 characters long';
     },
   },
 
@@ -101,7 +101,7 @@ export default {
   },
 
   methods: {
-    ...mapActions(['setIsLogged']),
+    ...mapActions(['setIsLogged', 'setUser', 'fetchUserData']),
 
     onInput(inputType, val) {
       this[inputType] = val;
@@ -121,14 +121,13 @@ export default {
       }
 
       this.isLoading = true;
-      await new Promise(res => {
-        setTimeout(res, 4000);
-      });
-      this.isLoading = true;
+      await this.fetchUserData();
+      this.isLoading = false;
 
-      this.$router.push({name: 'Profile'});
+      await this.$router.push({name: 'Profile'});
     },
   },
+
 };
 </script>
 

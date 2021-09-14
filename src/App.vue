@@ -4,10 +4,10 @@
        :class="{'dark': darkMode}">
     <div class="wrap w-full h-full bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-50 overflow-hidden"
          :class="{'theme-transition': isThemeChanging}">
-      <VSwitch
-        :value="darkMode"
-        @input="onChangeTheme"
-      />
+<!--      <VSwitch-->
+<!--        :value="darkMode"-->
+<!--        @input="onChangeTheme"-->
+<!--      />-->
       <transition name="page"
                   mode="out-in">
         <router-view/>
@@ -18,11 +18,8 @@
 
 <script>
 import {mapState, mapActions} from 'vuex';
-import VSwitch from "./components/ui/VSwitch";
 
 export default {
-  components: {VSwitch},
-
   data() {
     return {
       isThemeChanging: false,
@@ -35,7 +32,7 @@ export default {
     }),
   },
 
-  created() {
+  mounted() {
     this.loadAppState();
   },
 
@@ -66,7 +63,7 @@ export default {
 
   .page-enter-active,
   .page-leave-active {
-    transition: opacity .4s;
+    transition: opacity .2s ease-out;
   }
   .page-enter,
   .page-leave-to {
