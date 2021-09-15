@@ -1,8 +1,9 @@
 <template>
-  <div class="absolute top-0 left-0 right-0 flex justify-between items-center px-8 h-16 bg-gray-600">
+  <div class="absolute z-10 top-0 left-0 right-0 flex justify-between items-center px-8 h-16 dark:bg-gray-600 shadow-lg">
     <Burger
       class="cursor-pointer dark:hover:text-gray-400 transition-color duration-300"
       :size="36"
+      @click="$emit('click')"
     />
 
     <div class="flex items-center">
@@ -37,7 +38,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-
-</style>

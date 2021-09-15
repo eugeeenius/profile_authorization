@@ -8,6 +8,7 @@ export default new Vuex.Store({
     darkMode: true,
     user: null,
     isLoading: false,
+    setIsLogged: false,
   },
 
   actions: {
@@ -18,10 +19,6 @@ export default new Vuex.Store({
       commit('SET_THEME', payload);
     },
 
-    setIsLogged() {
-      localStorage.setItem('isLogged', true);
-    },
-
     loadAppState({commit}) {
       const theme = JSON.parse(localStorage.getItem('darkMode'));
       commit('SET_THEME', theme ?? false);
@@ -30,7 +27,7 @@ export default new Vuex.Store({
       commit('SET_USER', user);
     },
 
-    async fetchUserData() {
+    async fetchUserData({commit}) {
       try {
         const url = 'https://randomuser.me/api/';
         const data = await fetch(url).then(res => res.json());
@@ -40,15 +37,11 @@ export default new Vuex.Store({
           setTimeout(res, 3000);
         });
 
-        await this.setUser(user);
+        sessionStorage.setItem('user', user ? JSON.stringify(user) : 'null');
+        commit('SET_USER', user);
       } catch(e) {
         console.warn('[store/fetchUserData]: ', e);
       }
-    },
-
-    setUser({commit}, payload) {
-      sessionStorage.setItem('user', payload ? JSON.stringify(payload) : null);
-      commit('SET_USER', payload);
     },
 
     setIsLoading({commit}, payload) {
@@ -60,15 +53,12 @@ export default new Vuex.Store({
     SET_THEME(state, payload) {
       state.darkMode = payload;
     },
+
     SET_USER(state, payload) {
       state.user = payload;
     },
-    //     SET_LOGIN_DATA(state, payload) {
-    //       state.loginData = payload;
-    //     },
 
     SET_IS_LOADING(state, payload) {
-      console.log(payload);
       state.isLoading = payload;
     },
   },

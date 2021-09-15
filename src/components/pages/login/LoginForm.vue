@@ -117,7 +117,7 @@ export default {
         return;
       }
       if (this.remember) {
-        this.setIsLogged();
+        localStorage.setItem('isLogged', 'true');
       }
 
       this.isLoading = true;

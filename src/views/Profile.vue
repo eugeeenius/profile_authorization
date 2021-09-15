@@ -1,17 +1,26 @@
 <template>
   <div class="profile w-full h-full relative">
-    <ProfileHeader :user="user"/>
+    <ProfileHeader
+      :user="user"
+      @click="isSidebarOpen = !isSidebarOpen"
+    />
+
+    <ProfileSidebar
+      :is-open="isSidebarOpen"
+      @close="isSidebarOpen = false"
+    />
   </div>
 </template>
 
 <script>
 import {mapState, mapActions} from 'vuex';
 import ProfileHeader from '@/components/pages/profile/ProfileHeader.vue';
+import ProfileSidebar from "../components/pages/profile/ProfileSidebar";
 
 export default {
   name: 'Profile',
 
-  components: {ProfileHeader},
+  components: {ProfileSidebar, ProfileHeader},
 
   computed: {
     ...mapState({
@@ -21,7 +30,7 @@ export default {
 
   data() {
     return {
-      isProfileLoading: false,
+      isSidebarOpen: false,
     };
   },
 
@@ -44,7 +53,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" scoped>
-
-</style>

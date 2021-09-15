@@ -1,13 +1,16 @@
 <template>
   <div class="w-full h-full relative">
-    <div class="form">
-      <LoginForm @on-loading="isLoading = $event"/>
+    <transition name="appear"
+                appear>
+      <div class="form">
+        <LoginForm @on-loading="isLoading = $event"/>
 
-      <div v-if="isLoading"
-           class="loader">
-        <Loader/>
+        <div v-if="isLoading"
+             class="loader">
+          <Loader/>
+        </div>
       </div>
-    </div>
+    </transition>
   </div>
 </template>
 

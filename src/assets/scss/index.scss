@@ -8,3 +8,13 @@ input {
 .theme-transition > * {
   transition: color, background-color $theme-transition;
 }
+
+.appear-enter-active,
+.appear-leave-active {
+  transition: opacity .4s;
+}
+
+.appear-enter,
+.appear-leave-to {
+  opacity: 0;
+}
