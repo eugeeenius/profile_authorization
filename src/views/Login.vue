@@ -15,6 +15,7 @@
 </template>
 
 <script>
+import {mapState, mapActions, mapGetters} from 'vuex';
 import LoginForm from "../components/pages/login/LoginForm";
 import Loader from "../components/Loader";
 
@@ -29,13 +30,19 @@ export default {
     };
   },
 
-  beforeRouteEnter(to, from, next) {
-    const isLogged = JSON.parse(localStorage.getItem('isLogged'));
-    if (!isLogged) {
-      return next();
+  computed: {
+    ...mapState({
+      user: state => state.user,
+      isLogged: state => state.isLogged,
+    }),
+  },
+
+  created() {
+    if (!this.isLogged) {
+      return ;
     }
 
-    next({name: 'Profile'});
+    this.$router.push({name: 'Profile'});
   },
 };
 </script>

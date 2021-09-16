@@ -1,6 +1,6 @@
 <template>
   <div class="v-checkbox flex items-center">
-    <div class="flex justify-center items-center w-5 h-5 rounded-sm dark:bg-gray-800 cursor-pointer"
+    <div class="flex justify-center items-center w-5 h-5 rounded-sm bg-gray-200 dark:bg-gray-800 cursor-pointer"
          @click="$emit('input', !value)">
       <Check
         class="dark:text-gray-300"

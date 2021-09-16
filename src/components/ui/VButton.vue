@@ -1,5 +1,5 @@
 <template>
-  <button class="v-button flex justify-center items-center h-8 dark:bg-gray-600 dark:text-gray-200 dark:hover:bg-gray-500 duration-300"
+  <button class="v-button flex justify-center items-center h-8 bg-gray-200 hover:bg-gray-300 dark:bg-gray-600 dark:text-gray-200 dark:hover:bg-gray-500 duration-300"
           :class="round ? 'rounded-full w-8' : 'rounded px-4'"
           @click.prevent="$emit('click')">
     <slot/>

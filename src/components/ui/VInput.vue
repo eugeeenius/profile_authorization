@@ -1,9 +1,10 @@
 <template>
   <div class="v-input text-left"
        :class="{'_wrong': wrong}">
-    <div class="v-input__cell relative w-full px-3 py-2 rounded leading-none dark:bg-gray-800 transition-all duration-300">
+    <div class="v-input__cell relative w-full px-3 py-2 rounded leading-none bg-gray-200 dark:bg-gray-800 transition-all duration-300">
       <input
         v-model="lazyValue"
+        v-mask="mask"
         :type="password ? 'password' : 'text'"
         class="w-full h-full bg-transparent dark:placeholder-gray-500"
         :placeholder="!lazyValue && !isFocused ? placeholder : ''"
@@ -43,6 +44,10 @@ export default {
     password: {
       type: Boolean,
       default: false,
+    },
+    mask: {
+      type: String,
+      default: '',
     },
   },
 

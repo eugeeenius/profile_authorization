@@ -4,10 +4,6 @@
        :class="{'dark': darkMode}">
     <main class="main w-full h-full bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-50 overflow-hidden"
          :class="{'theme-transition': isThemeChanging}">
-<!--      <VSwitch-->
-<!--        :value="darkMode"-->
-<!--        @input="onChangeTheme"-->
-<!--      />-->
       <router-view/>
     </main>
   </div>
@@ -29,7 +25,7 @@ export default {
     }),
   },
 
-  mounted() {
+  created() {
     this.loadAppState();
   },
 

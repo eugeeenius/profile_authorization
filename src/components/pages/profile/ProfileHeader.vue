@@ -8,12 +8,12 @@
 
     <div class="flex items-center">
       <Skeleton placeholder="Lorem ipsum dolor.">
-        {{ `${user.name.first} ${user.name.last}`}}
+        {{ userFullName }}
       </Skeleton>
 
       <div class="relative flex-shrink-0 w-10 h-10 ml-2 overflow-hidden rounded-full">
         <Skeleton full>
-          <ProfilePicture :image="user.picture.thumbnail" />
+          <ProfilePicture :image="image" />
         </Skeleton>
       </div>
     </div>
@@ -34,6 +34,15 @@ export default {
     user: {
       type: Object,
       default: () => ({}),
+    },
+  },
+
+  computed: {
+    userFullName() {
+      return `${this.user?.name.first || ''} ${this.user?.name.last || ''}`;
+    },
+    image() {
+      return this.user?.picture.thumbnail;
     },
   },
 };

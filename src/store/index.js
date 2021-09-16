@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+import {dateToString} from '../assets/js/utils';
 
 Vue.use(Vuex);
 
@@ -8,7 +9,46 @@ export default new Vuex.Store({
     darkMode: true,
     user: null,
     isLoading: false,
-    setIsLogged: false,
+    isLogged: false,
+  },
+
+  getters: {
+    getLoadingState: state => state.isLoading,
+
+    getProfileInfoFields: state => ([
+      {
+        title: 'First Name',
+        value: state.user?.name.first ?? '',
+        mask: '',
+      },
+      {
+        title: 'Last Name',
+        value: state.user?.name.last ?? '',
+        mask: '',
+      },
+      {
+        title: 'Email',
+        value: state.user?.email ?? '',
+        mask: '',
+      },
+      {
+        title: 'Phone',
+        value: state.user?.phone ?? '',
+        mask: '(###) ###-####',
+      },
+      {
+        title: 'Location',
+        value: state.user.location?.city && state.user.location?.state
+          ? state.user?.location.state + ', ' +state.user?.location.city
+          : '',
+        mask: '',
+      },
+      {
+        title: 'Date of Birth',
+        value: state.user?.dob.date ? dateToString(new Date(state.user.dob.date)) : '',
+        mask: '##.##.####',
+      },
+    ]),
   },
 
   actions: {
@@ -21,10 +61,13 @@ export default new Vuex.Store({
 
     loadAppState({commit}) {
       const theme = JSON.parse(localStorage.getItem('darkMode'));
-      commit('SET_THEME', theme ?? false);
+      commit('SET_THEME', theme ?? true);
 
       const user = JSON.parse(sessionStorage.getItem('user'));
       commit('SET_USER', user);
+
+      const logged = JSON.parse(localStorage.getItem('isLogged'));
+      commit('SET_IS_LOGGED', logged);
     },
 
     async fetchUserData({commit}) {
@@ -47,6 +90,14 @@ export default new Vuex.Store({
     setIsLoading({commit}, payload) {
       commit('SET_IS_LOADING', payload);
     },
+
+    setUserInfo({commit}, payload) {
+      commit('SET_USER', payload);
+    },
+
+    setIsLogged({commit}, payload) {
+      commit('SET_IS_LOGGED', payload);
+    },
   },
 
   mutations: {
@@ -61,9 +112,9 @@ export default new Vuex.Store({
     SET_IS_LOADING(state, payload) {
       state.isLoading = payload;
     },
-  },
 
-  getters: {
-    getLoadingState: state => state.isLoading,
+    SET_IS_LOGGED(state, payload) {
+      state.isLogged = payload;
+    },
   },
 });
